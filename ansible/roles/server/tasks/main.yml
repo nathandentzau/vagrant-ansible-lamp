@@ -1,0 +1,36 @@
+# Ubuntu 14.04 configuration
+# Vagrant/Ansible Lamp Stack
+# Nathan Dentzau <nathan.dentzau@gmail.com>
+
+- name: Update aptitude and upgrade packages
+  apt:
+    update_cache=yes
+    upgrade=yes
+
+- name: Install System Packages
+  apt: pkg={{ item }} state=latest
+  with_items:
+    - curl
+    - wget
+
+- name: Set timezone to America/New_York
+  copy: content='America/New_York\n'
+        dest=/etc/timezone
+        owner=root
+        group=root
+        mode=0644
+        backup=yes
+  notify:
+    - update timezone
+
+- name: Set language pack to US English UTF-8
+  shell: locale-gen en_US.UTF-8
+
+- name: Update /etc/hosts; 127.0.0.1 localhost lamp.local
+  lineinfile: dest=/etc/hosts
+              regexp='^127\.0\.0\.1'
+              line='127.0.0.1 localhost lamp.local'
+              owner=root
+              group=root
+              mode=0644
+              backup=yes

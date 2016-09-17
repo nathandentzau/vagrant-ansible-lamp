@@ -1,3 +1,6 @@
+# Vagrant/Ansible LAMP Stack
+# Nathan Dentzau <nathan.dentzau@gmail.com>
+
 Vagrant.configure('2') do |config|
   config.hostmanager.enabled = true
   config.hostmanager.manage_host = true

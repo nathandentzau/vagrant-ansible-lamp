@@ -1,0 +1,28 @@
+# PHP 7.1 configuration
+# Vagrant/Ansible Lamp Stack
+# Nathan Dentzau <nathan.dentzau@gmail.com>
+
+- name: Add php ppa repository
+  apt_repository: repo=ppa:ondrej/php
+
+- name: Update aptitude
+  apt: update_cache=yes
+
+- name: Install php 7.1
+  apt: pkg=php7.1 state=latest
+
+- name: Install php 7.1 packages
+  apt: pkg={{ item }} state=latest
+  with_items: [
+    libapache2-mod-php7.1,
+    php7.1-cli,
+    php7.1-fpm,
+    php7.1-curl,
+    php7.1-json,
+    php7.1-mbstring,
+    php7.1-mcrypt,
+    php7.1-mysql,
+    php7.1-soap,
+    php7.1-sqlite3,
+    php7.1-xml
+  ]

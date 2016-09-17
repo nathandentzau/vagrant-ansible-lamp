@@ -1,0 +1,6 @@
+# Apache 2.x configuration
+# Vagrant/Ansible Lamp Stack
+# Nathan Dentzau <nathan.dentzau@gmail.com>
+
+- name: Install apache 2.x
+  apt: pkg=apache2 state=latest

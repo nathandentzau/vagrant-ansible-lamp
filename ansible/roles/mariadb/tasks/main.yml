@@ -1,0 +1,7 @@
+# MariaDB configurations
+# Vagrant/Ansible Lamp Stack
+# Nathan Dentzau <nathan.dentzau@gmail.com>
+
+- name: Install MariaDB
+  apt: pkg={{ item }} state=latest
+  with_items: [mariadb-server, mariadb-client]
