@@ -5,6 +5,9 @@ Vagrant.configure('2') do |config|
   config.hostmanager.enabled = true
   config.hostmanager.manage_host = true
 
+  config.ssh.forward_agent = true
+  config.ssh.insert_key = true
+
   config.vm.box = 'ubuntu/trusty64'
   config.vm.hostname = 'lamp.local'
   config.vm.network :private_network, ip: '192.168.33.66'
@@ -20,6 +23,9 @@ Vagrant.configure('2') do |config|
     ansible.playbook = 'ansible/playbook.yml'
   end
 
-  config.ssh.forward_agent = true
-  config.ssh.insert_key = true
+  config.vm.synced_folder './', '/vagrant', group: 'vagrant', owner: 'vagrant'
+  config.vm.synced_folder './public', '/vagrant/public',
+    owner: 'www-data',
+    group: 'vagrant',
+    mount_options: ['dmode=775,fmode=664']
 end
